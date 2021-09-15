@@ -28,19 +28,19 @@
             <div class="col-md-4 ">
                 <div class="deposit-area status">
                     <h5>Deposit</h5>
-                    <h5>$100</h5>
+                    <h5>$ <span id="currentDeposit">00</span></h5>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="withdraw-area status">
                     <h5>Withdraw</h5>
-                    <h5>$200</h5>
+                    <h5>$ <span id="withdrawOut"></span></h5>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="balance-area status">
                     <h5>Balance</h5>
-                    <h5>$1200</h5>
+                    <h5>$ <span id="newBalance">1240</span></h5>
                 </div>
             </div>
         </div>
@@ -49,15 +49,15 @@
             <div class="col-md-6">
                 <div class="submit-area">
                     <h4>Deposit</h4>
-                    <input type="text" class="form-control" placeholder="$ Amount you want to Deposit">
-                    <button class="btn btn-success">Deposit</button>
+                    <input id="depositAmount" type="text" class="form-control" placeholder="$ Amount you want to Deposit">
+                    <button id="addDeposit" class="btn btn-success">Deposit</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="submit-area">
                     <h4>Withdraw</h4>
-                    <input type="text" class="form-control" placeholder="$Amount you want to Withdraw">
-                    <button class="btn btn-success">Withdraw</button>
+                    <input id="withdrawAmount" type="text" class="form-control" placeholder="$Amount you want to Withdraw">
+                    <button id ="lessWithdraw" class="btn btn-success">Withdraw</button>
                 </div>
             </div>
         </div>
@@ -66,6 +66,8 @@
 
 
     <script>
+
+        // log-in button event handeler
         const loginBtn = document.getElementById("login");
         loginBtn.addEventListener("click",function(){
             const loginArea= document.getElementById("login-area");
@@ -73,6 +75,60 @@
             const TransactionArea = document.getElementById("Transaction-area");
             TransactionArea.style.display ="block";
         })
+
+        //deposit button event handelar
+        const depositBtn = document.getElementById("addDeposit");
+        depositBtn.addEventListener("click", function(){
+            const depositAmo= document.getElementById("depositAmount").value;
+            const depositNum= parseFloat(depositAmo);
+
+
+               
+                //function for every section
+
+            // const currentDepo = document.getElementById("currentDeposit").innerText;
+            // const currentDepositValue = parseFloat(currentDepo);
+            // const totalDeposit = depositNum + currentDepositValue;
+           
+            // document.getElementById("currentDeposit").innerText = totalDeposit;  
+                      
+
+                      //Below function link for Deposit Section
+            updateSpanText("currentDeposit", depositNum);
+                       //Below function link for Balance Section
+           updateSpanText("newBalance", depositNum);
+
+            document.getElementById("depositAmount").value = "";
+        })
+
+        function updateSpanText(id, depositNum){
+            const current = document.getElementById(id).innerText;
+            const currentValue = parseFloat(current);
+            const total = depositNum + currentValue;
+           
+            document.getElementById(id).innerText = total;
+
+
+            updateSpanText(total);
+
+        }
+
+        // Withdrow Area 
+
+        const lastWdthdrow = document.getElementById("lessWithdraw");
+        lastWdthdrow.addEventListener('click', function(){
+            const currentWd = document.getElementById("withdrawAmount").value;
+            const withdrawmony = parseFloat(currentWd);
+            document.getElementById("withdrawOut").innerText = withdrawmony;
+            const lastBalance = total - withdrawmony;
+            document.getElementById("newBalance").innerText = lastBalance;
+           
+
+            document.getElementById("withdrawAmount").value = "";
+        })
+
+
+
     </script>
 </body>
 </html>
