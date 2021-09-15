@@ -34,13 +34,13 @@
             <div class="col-md-4">
                 <div class="withdraw-area status">
                     <h5>Withdraw</h5>
-                    <h5>$ <span id="withdrawOut"></span></h5>
+                    <h5>$ <span id="withdrawOut">00</span></h5>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="balance-area status">
                     <h5>Balance</h5>
-                    <h5>$ <span id="newBalance">1240</span></h5>
+                    <h5>$ <span id="currentBalance">1240</span></h5>
                 </div>
             </div>
         </div>
@@ -81,7 +81,12 @@
         depositBtn.addEventListener("click", function(){
             const depositAmo= document.getElementById("depositAmount").value;
             const depositNum= parseFloat(depositAmo);
+                 //Below function link for Deposit Section
+            updateSpanText("currentDeposit", depositNum);
+                  //Below function link for Balance Section
+           updateSpanText("currentBalance", depositNum);
 
+            document.getElementById("depositAmount").value = "";
 
                
                 //function for every section
@@ -93,12 +98,7 @@
             // document.getElementById("currentDeposit").innerText = totalDeposit;  
                       
 
-                      //Below function link for Deposit Section
-            updateSpanText("currentDeposit", depositNum);
-                       //Below function link for Balance Section
-           updateSpanText("newBalance", depositNum);
 
-            document.getElementById("depositAmount").value = "";
         })
 
         function updateSpanText(id, depositNum){
@@ -109,22 +109,35 @@
             document.getElementById(id).innerText = total;
 
 
-            updateSpanText(total);
+            
 
         }
 
         // Withdrow Area 
 
-        const lastWdthdrow = document.getElementById("lessWithdraw");
-        lastWdthdrow.addEventListener('click', function(){
+        const WdthdrowBtn = document.getElementById("lessWithdraw");
+        WdthdrowBtn.addEventListener('click', function(){
             const currentWd = document.getElementById("withdrawAmount").value;
             const withdrawmony = parseFloat(currentWd);
-            document.getElementById("withdrawOut").innerText = withdrawmony;
-            const lastBalance = total - withdrawmony;
-            document.getElementById("newBalance").innerText = lastBalance;
+            const totalwithdrow = document.getElementById("withdrawOut").innerText;
+            const widthd = parseFloat(totalwithdrow);
+            const totalWithd = withdrawmony + widthd;
+            document.getElementById("withdrawOut").innerText= totalWithd;
+            
+                //after withdraw money then Balance
+            updateSpanText("currentBalance", -1* withdrawmony);
            
-
             document.getElementById("withdrawAmount").value = "";
+
+
+
+                      //Function for withdrow
+            //  const withdrawmony = getInputNumber("currentWd");
+            // // function getInputNumber(id){
+            // //     const amount1 = document.getElementById(id).value;
+            // //     const amountmoney = parseFloat(amount1);
+            // //     return amountmoney;
+            // }
         })
 
 
